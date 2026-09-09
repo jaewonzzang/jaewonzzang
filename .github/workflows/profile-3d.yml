@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # profile-3d-contrib/ 아래에 여러 테마의 SVG를 생성합니다.
       # README 는 그중 profile-night-rainbow.svg 를 참조합니다.
