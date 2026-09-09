@@ -1,0 +1,36 @@
+name: WakaTime Stats
+
+# 주 1회만 실행합니다. 매일 돌리면 봇 커밋이 쌓여 잔디가 부풀고,
+# 커밋 내역을 열어보면 바로 티가 납니다.
+# 0 18 * * 0  =  매주 일요일 18:00 UTC (한국 시간 월요일 새벽 3시)
+on:
+  schedule:
+    - cron: "0 18 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    name: Update README with WakaTime stats
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Write WakaTime stats into README
+        uses: athul/waka-readme@master
+        with:
+          # 필요한 시크릿은 이것 하나뿐입니다.
+          # (GH_TOKEN 은 "프로필 레포가 아닌" 다른 레포의 README 를 고칠 때만 필요)
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+          SHOW_TITLE: "true"
+          SECTION_NAME: "waka"
+          BLOCKS: "░▒▓█"
+          TIME_RANGE: "last_7_days"
+          LANG_COUNT: "6"
+          SHOW_TIME: "true"
+          SHOW_TOTAL: "true"
+          SHOW_MASKED_TIME: "false"
+          COMMIT_MESSAGE: "chore(readme): update wakatime stats"

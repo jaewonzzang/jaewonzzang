@@ -1,0 +1,40 @@
+name: GitHub Profile 3D Contrib
+
+# waka.yml 과 같은 주기(주 1회)로 맞춥니다.
+# 0 18 * * 0  =  매주 일요일 18:00 UTC (한국 시간 월요일 새벽 3시)
+on:
+  schedule:
+    - cron: "0 18 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Generate 3D contribution graph
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # profile-3d-contrib/ 아래에 여러 테마의 SVG를 생성합니다.
+      # README 는 그중 profile-night-rainbow.svg 를 참조합니다.
+      # 재현성이 필요하면 @latest 대신 버전 태그(예: @0.7.1)로 고정하세요.
+      - name: Generate
+        uses: yoshi389111/github-profile-3d-contrib@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add profile-3d-contrib
+          if git diff --staged --quiet; then
+            echo "변경 사항 없음 — 커밋을 건너뜁니다."
+          else
+            git commit -m "chore(profile): update 3d contribution graph"
+            git push
+          fi

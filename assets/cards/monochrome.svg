@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="180" viewBox="0 0 400 180" role="img" aria-label="MONOCHROME: UNSEEN — Three.js·GLSL 기반 인터랙티브 3D 가상 전시">
+  <defs>
+    <clipPath id="mcCard"><rect width="400" height="180" rx="16"/></clipPath>
+
+    <linearGradient id="mcWash" x1="0" y1="0" x2="0.9" y2="1">
+      <stop offset="0%" stop-color="#9A63D6" stop-opacity="0.20"/>
+      <stop offset="60%" stop-color="#9A63D6" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#9A63D6" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- light sweeping across the shader field -->
+    <linearGradient id="mcFlow" x1="-0.6" y1="0" x2="0" y2="0">
+      <stop offset="0%" stop-color="#9A63D6" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#CBB4E8" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#9A63D6" stop-opacity="0"/>
+      <animate attributeName="x1" values="-0.6;1.0;-0.6" dur="11s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="0;1.6;0" dur="11s" repeatCount="indefinite"/>
+    </linearGradient>
+
+    <pattern id="mcDots" width="6" height="6" patternUnits="userSpaceOnUse">
+      <circle cx="1.6" cy="1.6" r="0.8" fill="#EDE7DA" opacity="0.05"/>
+    </pattern>
+  </defs>
+
+  <g clip-path="url(#mcCard)">
+    <rect width="400" height="180" fill="#211D28"/>
+    <rect width="400" height="180" fill="url(#mcWash)"/>
+
+    <!-- displaced shader field -->
+    <g fill="none" stroke-width="1.2">
+      <g stroke="#B9AFC9" opacity="0.30">
+        <path d="M280 12 C 292 46, 268 92, 280 148"/>
+        <path d="M302 12 C 314 46, 290 92, 302 148"/>
+        <path d="M324 12 C 336 46, 312 92, 324 148"/>
+        <path d="M346 12 C 358 46, 334 92, 346 148"/>
+        <path d="M368 12 C 380 46, 356 92, 368 148"/>
+      </g>
+      <g stroke="url(#mcFlow)">
+        <path d="M280 12 C 292 46, 268 92, 280 148"/>
+        <path d="M302 12 C 314 46, 290 92, 302 148"/>
+        <path d="M324 12 C 336 46, 312 92, 324 148"/>
+        <path d="M346 12 C 358 46, 334 92, 346 148"/>
+        <path d="M368 12 C 380 46, 356 92, 368 148"/>
+      </g>
+    </g>
+
+    <!-- slow orbit -->
+    <g transform="translate(330,80)">
+      <circle r="52" fill="none" stroke="#EDE7DA" stroke-width="1" stroke-dasharray="3 11" opacity="0.42">
+        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="38s" repeatCount="indefinite"/>
+      </circle>
+      <circle r="30" fill="none" stroke="#9A63D6" stroke-width="1" stroke-dasharray="2 8" opacity="0.55">
+        <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="26s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <rect width="400" height="180" fill="url(#mcDots)"/>
+    <rect x="0" y="26" width="4" height="128" fill="#9A63D6"/>
+
+    <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif">
+      <text x="26" y="38" fill="#8B8496" font-size="9.5" font-weight="700" letter-spacing="3.2">02 &#183; PROJECT</text>
+      <text x="26" y="72" fill="#EDE7DA" font-size="25" font-weight="800" letter-spacing="-0.2">MONOCHROME</text>
+      <text x="188" y="72" fill="#9A63D6" font-size="13" font-weight="700" letter-spacing="1.5">: UNSEEN</text>
+      <text x="26" y="96" fill="#C9C2D4" font-size="12.5">인터랙티브 3D 가상 전시</text>
+      <text x="26" y="115" fill="#8B8496" font-size="10.5">커스텀 셰이더 · 실시간 렌더링</text>
+
+      <g font-size="10.5" font-weight="600">
+        <rect x="26" y="136" width="72" height="22" rx="11" fill="none" stroke="#9A63D6" stroke-opacity="0.55"/>
+        <text x="62" y="151" fill="#C3A6E4" text-anchor="middle">Three.js</text>
+        <rect x="106" y="136" width="47" height="22" rx="11" fill="none" stroke="#9A63D6" stroke-opacity="0.55"/>
+        <text x="129.5" y="151" fill="#C3A6E4" text-anchor="middle">GLSL</text>
+        <rect x="161" y="136" width="53" height="22" rx="11" fill="none" stroke="#9A63D6" stroke-opacity="0.55"/>
+        <text x="187.5" y="151" fill="#C3A6E4" text-anchor="middle">WebGL</text>
+      </g>
+    </g>
+
+    <rect x="0.5" y="0.5" width="399" height="179" rx="16" fill="none" stroke="#3A3345"/>
+  </g>
+</svg>

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>팔레트 제안 — jaewonzzang profile</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 48px 32px 96px;
+    background: #0d0d0f; color: #e8e8ea;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 6px; }
+  .lede { color: #8a8a92; font-size: 14px; margin: 0 0 40px; line-height: 1.6; }
+  .pal { margin-bottom: 64px; padding-top: 28px; border-top: 1px solid #232327; }
+  .head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .tag { font-size: 12px; font-weight: 700; letter-spacing: .12em;
+         padding: 3px 9px; border-radius: 999px; background: #232327; color: #b9b9c2; }
+  .name { font-size: 18px; font-weight: 700; letter-spacing: .04em; }
+  .ko { font-size: 14px; color: #8a8a92; }
+  .desc { color: #9a9aa2; font-size: 13.5px; line-height: 1.7; margin: 8px 0 20px; max-width: 74ch; }
+  .swatches { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+  .sw { width: 104px; border-radius: 10px; overflow: hidden; border: 1px solid #26262b; }
+  .sw i { display: block; height: 46px; }
+  .sw b { display: block; font-size: 10.5px; font-weight: 600; letter-spacing: .06em;
+          padding: 6px 8px 2px; color: #cfcfd6; }
+  .sw span { display: block; font-size: 10px; padding: 0 8px 7px; color: #75757e;
+             font-family: ui-monospace, "Consolas", monospace; }
+  .mocks { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+  svg.banner { width: 100%; max-width: 900px; height: auto; border-radius: 10px; display: block; }
+  .cards { display: flex; gap: 14px; flex-wrap: wrap; }
+  svg.card { width: 300px; height: auto; display: block; }
+  .note { font-size: 12px; color: #6c6c75; margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>색상 팔레트 3안 — 배너 + 카드 목업</h1>
+  <p class="lede">아래는 구도만 잡은 <b>목업</b>입니다. 색 선택용이라 실제 배너·카드보다 단순합니다.<br>
+     한 안을 고르시면 그 팔레트로 배너(다크/라이트)와 카드 3장을 제대로 만듭니다.</p>
+  <div id="out"></div>
+</div>
+
+<script>
+const palettes = [
+  {
+    id: "A", name: "RISO OVERPRINT", ko: "리소 중첩",
+    desc: "리소그래프 인쇄의 잉크 중첩에서 가져온 팔레트. 형광 핑크와 잉크 블루가 겹치는 지점의 보라를 그라데이션으로 씁니다. 인쇄물 질감과 디지털의 충돌 — 아트&amp;테크 전공자의 첫인상으로 가장 직관적이고, 세 카드의 성격 차이를 색으로 벌리기 좋습니다.",
+    v: { bg:"#17141C", surface:"#211D28", line:"#3A3345", paper:"#EDE7DA",
+         muted:"#8B8496", a1:"#4F7CFF", a2:"#FF5C8A", a3:"#9A63D6" }
+  },
+  {
+    id: "B", name: "PHOSPHOR", ko: "인광 · 비디오 아트",
+    desc: "CRT 인광체의 발광 그린과 앰버. 백남준 이후 미디어아트의 시각 언어를 직접 참조합니다. 셋 중 가장 성격이 뚜렷하지만, 개발자 터미널 감성으로도 읽힐 수 있어 호불호가 갈립니다.",
+    v: { bg:"#0A0E0C", surface:"#121A16", line:"#24332C", paper:"#E4EDE7",
+         muted:"#6F8078", a1:"#5EE7A8", a2:"#E8B04B", a3:"#B8C7BE" }
+  },
+  {
+    id: "C", name: "CYANOTYPE", ko: "청사진",
+    desc: "청사진(시아노타입)의 프러시안 블루 바탕에 시안 라인과 따뜻한 종이색. 설계도의 문법이라 '구조를 만드는 사람'으로 읽히고, 톤이 차분해 라이트 모드에서도 안정적입니다. 셋 중 가장 오래 갑니다.",
+    v: { bg:"#0A1420", surface:"#10202E", line:"#22405A", paper:"#E9DFC8",
+         muted:"#6B8296", a1:"#58C7E8", a2:"#D89A4E", a3:"#8FB3C9" }
+  }
+];
+
+const labels = { bg:"BG", surface:"SURFACE", line:"LINE", paper:"PAPER",
+                 muted:"MUTED", a1:"ACCENT 1", a2:"ACCENT 2", a3:"ACCENT 3" };
+
+const FF = "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif";
+
+function banner(p, id) {
+  const v = p.v;
+  const grid = Array.from({length:29}, (_,i) =>
+    '<line x1="' + (i*40+20) + '" y1="0" x2="' + (i*40+20) + '" y2="280"/>').join("");
+  const rings = Array.from({length:7}, (_,i) =>
+    '<circle cx="1045" cy="150" r="' + (34+i*17) + '"/>').join("");
+  return [
+    '<svg class="banner" viewBox="0 0 1200 280" xmlns="http://www.w3.org/2000/svg" role="img">',
+    '<defs>',
+      '<linearGradient id="g', id, '" x1="0" y1="0" x2="1" y2="1">',
+        '<stop offset="0%" stop-color="', v.a1, '"/><stop offset="100%" stop-color="', v.a2, '"/>',
+      '</linearGradient>',
+      '<clipPath id="c', id, '"><rect width="1200" height="280"/></clipPath>',
+    '</defs>',
+    '<g clip-path="url(#c', id, ')">',
+      '<rect width="1200" height="280" fill="', v.bg, '"/>',
+      '<g stroke="', v.line, '" stroke-width="1" opacity="0.55">', grid, '</g>',
+      '<circle cx="1010" cy="130" r="92" fill="', v.a1, '" opacity="0.35"/>',
+      '<circle cx="1080" cy="168" r="92" fill="', v.a2, '" opacity="0.35"/>',
+      '<circle cx="1045" cy="150" r="46" fill="', v.a3, '" opacity="0.30"/>',
+      '<g fill="none" stroke="', v.paper, '" stroke-width="1" opacity="0.30">', rings, '</g>',
+      '<text x="64" y="88" fill="', v.a1, '" font-size="14" font-weight="700" letter-spacing="7" font-family="', FF, '">ART &amp; TECHNOLOGY</text>',
+      '<text x="62" y="168" fill="', v.paper, '" font-size="66" font-weight="700" letter-spacing="1" font-family="', FF, '">JAEWON KIM</text>',
+      '<text x="64" y="206" fill="', v.muted, '" font-size="17" font-family="', FF, '">Interactive Media &#183; Creative Development &#183; Applied AI</text>',
+      '<rect x="64" y="228" width="120" height="3" fill="url(#g', id, ')"/>',
+    '</g></svg>'
+  ].join("");
+}
+
+function card(p, id, title, sub, tags, accent, mono) {
+  const v = p.v;
+  const ac = mono ? v.paper : accent;
+  let x = 28;
+  const chips = tags.map(t => {
+    const w = t.length * 6.6 + 20;
+    const s = '<rect x="' + x + '" y="132" width="' + w + '" height="22" rx="11" fill="none" stroke="' + ac + '" stroke-opacity="0.5"/>' +
+              '<text x="' + (x + w/2) + '" y="147" fill="' + ac + '" text-anchor="middle">' + t + '</text>';
+    x += w + 8;
+    return s;
+  }).join("");
+  return [
+    '<svg class="card" viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img">',
+    '<defs><linearGradient id="cg', id, '" x1="0" y1="0" x2="1" y2="1">',
+      '<stop offset="0%" stop-color="', ac, '" stop-opacity="', (mono ? "0.16" : "0.28"), '"/>',
+      '<stop offset="100%" stop-color="', ac, '" stop-opacity="0"/>',
+    '</linearGradient></defs>',
+    '<rect width="400" height="180" rx="16" fill="', v.surface, '" stroke="', v.line, '"/>',
+    '<rect width="400" height="180" rx="16" fill="url(#cg', id, ')"/>',
+    '<rect x="0" y="24" width="4" height="132" rx="2" fill="', ac, '"/>',
+    '<text x="28" y="52" fill="', v.muted, '" font-size="10" font-weight="700" letter-spacing="3.5" font-family="', FF, '">PROJECT</text>',
+    '<text x="27" y="88" fill="', v.paper, '" font-size="26" font-weight="700" font-family="', FF, '">', title, '</text>',
+    '<text x="28" y="112" fill="', v.muted, '" font-size="12.5" font-family="', FF, '">', sub, '</text>',
+    '<g font-size="10.5" font-weight="600" font-family="', FF, '">', chips, '</g>',
+    '</svg>'
+  ].join("");
+}
+
+document.getElementById("out").innerHTML = palettes.map(function (p) {
+  const sw = Object.keys(labels).map(k =>
+    '<div class="sw"><i style="background:' + p.v[k] + '"></i><b>' + labels[k] + '</b><span>' + p.v[k] + '</span></div>'
+  ).join("");
+  return [
+    '<section class="pal">',
+      '<div class="head"><span class="tag">', p.id, '</span><span class="name">', p.name, '</span><span class="ko">', p.ko, '</span></div>',
+      '<p class="desc">', p.desc, '</p>',
+      '<div class="swatches">', sw, '</div>',
+      '<div class="mocks">',
+        banner(p, p.id),
+        '<div class="cards">',
+          card(p, p.id + "1", "findU", "통학 시간 기준 대학 랭킹", ["FastAPI", "React", "AWS"], p.v.a1, false),
+          card(p, p.id + "2", "MONOCHROME", "인터랙티브 3D 가상 전시", ["Three.js", "GLSL", "WebGL"], p.v.a3, true),
+          card(p, p.id + "3", "Saint+", "RAG 기반 수강 설계 도우미", ["RAG", "SBERT", "Docker"], p.v.a2, false),
+        '</div>',
+      '</div>',
+      '<p class="note">※ 목업입니다. 실제 카드에는 프로젝트별 그래픽 모티프가 들어가고, MONOCHROME 카드에는 SMIL 애니메이션이 붙습니다.</p>',
+    '</section>'
+  ].join("");
+}).join("");
+</script>
+</body>
+</html>

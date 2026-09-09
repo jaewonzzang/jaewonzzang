@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>미리보기 — jaewonzzang profile assets</title>
+<style>
+  * { box-sizing: border-box; }
+  :root {
+    --page: #0d0d0f; --ink: #e8e8ea; --sub: #8a8a92; --edge: #232327; --chip: #232327;
+  }
+  body.light {
+    --page: #F1EBDF; --ink: #1B1723; --sub: #6E6779; --edge: #D6CCBB; --chip: #E3DACA;
+  }
+  body {
+    margin: 0; padding: 40px 32px 96px;
+    background: var(--page); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+    transition: background .18s ease, color .18s ease;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; }
+  .bar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
+  h1 { font-size: 20px; font-weight: 700; margin: 0; }
+  button {
+    font: inherit; font-size: 12.5px; font-weight: 600;
+    padding: 7px 14px; border-radius: 999px; cursor: pointer;
+    background: var(--chip); color: var(--ink); border: 1px solid var(--edge);
+  }
+  button:hover { filter: brightness(1.15); }
+  .lede { color: var(--sub); font-size: 13.5px; line-height: 1.7; margin: 0 0 36px; }
+  h2 { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: var(--sub);
+       margin: 40px 0 4px; padding-top: 20px; border-top: 1px solid var(--edge); }
+  .meta { font-size: 12px; color: var(--sub); margin: 0 0 16px; font-family: ui-monospace, Consolas, monospace; }
+  img.banner { display: block; width: 100%; max-width: 900px; height: auto; border-radius: 8px; }
+  .cards { display: flex; gap: 16px; flex-wrap: wrap; }
+  figure { margin: 0; }
+  figure img { display: block; width: 340px; height: auto; }
+  figcaption { font-size: 11.5px; color: var(--sub); margin-top: 8px;
+               font-family: ui-monospace, Consolas, monospace; }
+  .actual { margin-top: 20px; }
+  .actual img { width: 400px; }
+  .hint { font-size: 12px; color: var(--sub); line-height: 1.7; margin-top: 12px;
+          padding: 12px 14px; border: 1px dashed var(--edge); border-radius: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bar">
+    <h1>프로필 에셋 미리보기</h1>
+    <button id="t">배경 전환 (다크 ⇄ 라이트)</button>
+  </div>
+  <p class="lede">
+    GitHub과 동일하게 <code>&lt;img&gt;</code> 태그로 SVG를 불러옵니다.<br>
+    즉 여기서 애니메이션이 돌면 GitHub에서도 돕니다. 반대로 여기서 안 보이면 GitHub에서도 안 보입니다.
+  </p>
+
+  <h2>BANNER — DARK</h2>
+  <p class="meta">assets/banner-dark.svg · 1200 × 280</p>
+  <img class="banner" src="../assets/banner-dark.svg" alt="배너 다크">
+
+  <h2>BANNER — LIGHT</h2>
+  <p class="meta">assets/banner-light.svg · 1200 × 280</p>
+  <img class="banner" src="../assets/banner-light.svg" alt="배너 라이트">
+
+  <h2>PROJECT CARDS</h2>
+  <p class="meta">assets/cards/*.svg · 400 × 180 · 다크 기반 한 벌</p>
+  <div class="cards">
+    <figure>
+      <img src="../assets/cards/findu.svg" alt="findU 카드">
+      <figcaption>findu.svg</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/monochrome.svg" alt="MONOCHROME 카드">
+      <figcaption>monochrome.svg — SMIL 애니메이션</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/saint-plus.svg" alt="Saint+ 카드">
+      <figcaption>saint-plus.svg</figcaption>
+    </figure>
+  </div>
+
+  <div class="hint">
+    확인 포인트 —
+    ① 위 버튼으로 배경을 라이트로 바꿨을 때 카드 3장이 여전히 자연스러운지.
+    ② MONOCHROME 카드에서 보라 빛줄기가 왼쪽→오른쪽으로 훑고 지나가는지(11초 주기), 점선 링 두 개가 서로 반대로 아주 느리게 도는지.
+    ③ 배너의 이름 글자 가장자리에 핑크·블루가 살짝 어긋나 보이는지(리소 인쇄 어긋남).
+  </div>
+
+  <h2>CARD — 실제 크기 (400px)</h2>
+  <p class="meta">README에서 보이는 크기와 동일</p>
+  <div class="cards actual">
+    <figure><img src="../assets/cards/findu.svg" alt="findU 실제 크기"></figure>
+    <figure><img src="../assets/cards/monochrome.svg" alt="MONOCHROME 실제 크기"></figure>
+  </div>
+</div>
+
+<script>
+  var b = document.body, t = document.getElementById("t");
+  try { if (localStorage.getItem("pv-light") === "1") b.classList.add("light"); } catch (e) {}
+  t.addEventListener("click", function () {
+    b.classList.toggle("light");
+    try { localStorage.setItem("pv-light", b.classList.contains("light") ? "1" : "0"); } catch (e) {}
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-label="Jaewon Kim — Art &amp; Technology">
+  <defs>
+    <pattern id="halftone" width="6" height="6" patternUnits="userSpaceOnUse">
+      <circle cx="1.6" cy="1.6" r="0.85" fill="#EDE7DA" opacity="0.07"/>
+    </pattern>
+    <linearGradient id="rule" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4F7CFF"/>
+      <stop offset="52%" stop-color="#9A63D6"/>
+      <stop offset="100%" stop-color="#FF5C8A"/>
+    </linearGradient>
+    <clipPath id="frame"><rect width="1200" height="280"/></clipPath>
+    <clipPath id="inkA"><circle cx="955" cy="122" r="88"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="1200" height="280" fill="#17141C"/>
+
+    <!-- baseline grid -->
+    <g stroke="#3A3345" stroke-width="1" opacity="0.5">
+      <line x1="72" y1="0" x2="72" y2="280"/>
+      <line x1="1128" y1="0" x2="1128" y2="280"/>
+      <line x1="0" y1="240" x2="1200" y2="240"/>
+    </g>
+
+    <!-- overprinted ink layers -->
+    <g>
+      <circle cx="955" cy="122" r="88" fill="#4F7CFF" opacity="0.62"/>
+      <circle cx="1038" cy="166" r="88" fill="#FF5C8A" opacity="0.62"/>
+      <g clip-path="url(#inkA)">
+        <circle cx="1038" cy="166" r="88" fill="#9A63D6"/>
+      </g>
+    </g>
+
+    <!-- plotter rings -->
+    <g fill="none" stroke="#EDE7DA" stroke-width="1" opacity="0.20">
+      <circle cx="996" cy="144" r="26"/>
+      <circle cx="996" cy="144" r="50"/>
+      <circle cx="996" cy="144" r="74"/>
+      <circle cx="996" cy="144" r="98"/>
+      <circle cx="996" cy="144" r="122"/>
+      <circle cx="996" cy="144" r="146"/>
+    </g>
+
+    <!-- paper texture -->
+    <rect width="1200" height="280" fill="url(#halftone)"/>
+
+    <!-- type -->
+    <text x="72" y="94" fill="#7E9CFF" font-size="13" font-weight="700" letter-spacing="7.5"
+          font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif">ART &amp; TECHNOLOGY</text>
+
+    <g font-size="68" font-weight="800" letter-spacing="-0.5"
+       font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif">
+      <text x="74" y="171" fill="#FF5C8A" opacity="0.55">JAEWON KIM</text>
+      <text x="67" y="166" fill="#4F7CFF" opacity="0.55">JAEWON KIM</text>
+      <text x="70" y="168" fill="#EDE7DA">JAEWON KIM</text>
+    </g>
+
+    <text x="72" y="207" fill="#8B8496" font-size="16" letter-spacing="0.2"
+          font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif">Interactive Media &#183; Creative Development &#183; Applied AI</text>
+
+    <rect x="72" y="222" width="144" height="3" fill="url(#rule)"/>
+
+    <text x="1128" y="207" fill="#6E687A" font-size="12" font-weight="600" letter-spacing="2" text-anchor="end"
+          font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif">MAKE IT SEEN</text>
+
+    <!-- crop marks -->
+    <g stroke="#8B8496" stroke-width="1" opacity="0.45">
+      <path d="M36 18 L36 50 M18 36 L50 36"/>
+      <path d="M1164 18 L1164 50 M1150 36 L1182 36"/>
+      <path d="M36 230 L36 262 M18 244 L50 244"/>
+      <path d="M1164 230 L1164 262 M1150 244 L1182 244"/>
+    </g>
+  </g>
+</svg>
