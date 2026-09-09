@@ -13,6 +13,15 @@
 [![Saint+ — RAG 기반 수강 설계 도우미](assets/cards/saint-plus.svg)](https://github.com/jaewonzzang/Haksas-insight-lab)
 
 <!--START_SECTION:waka-->
+
+```txt
+From: 01 September 2026 - To: 08 September 2026
+
+Total Time: 0 secs
+
+No activity tracked
+```
+
 <!--END_SECTION:waka-->
 
 ![Contribution graph](profile-3d-contrib/profile-night-rainbow.svg)
