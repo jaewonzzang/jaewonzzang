@@ -27,6 +27,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USERNAME: ${{ github.repository_owner }}
 
+      # 액션에 스타/포크 숨김 옵션이 없어서 생성 직후 SVG에서 제거합니다.
+      - name: Strip star & fork counts
+        run: python3 .github/scripts/strip-star-fork.py profile-3d-contrib
+
       - name: Commit & push if changed
         run: |
           git config user.name  "github-actions[bot]"
